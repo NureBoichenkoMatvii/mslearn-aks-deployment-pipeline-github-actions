@@ -11,8 +11,8 @@ RUN curl -sL https://github.com/gohugoio/hugo/releases/download/v0.72.0/hugo_ext
     tar -xz && \
     mv hugo /usr/bin
 
-# Install PostCSS CLI and Autoprefixer globally
-RUN npm install -g postcss-cli autoprefixer postcss
+# Install a compatible version of PostCSS CLI and Autoprefixer globally
+RUN npm install -g postcss-cli@8.3.1 autoprefixer@10.2.6 postcss@8.2.15
 
 # Clone the repository
 RUN git clone https://github.com/MicrosoftDocs/mslearn-aks-deployment-pipeline-github-actions /contoso-website
@@ -24,7 +24,8 @@ WORKDIR /contoso-website/src
 RUN git submodule update --init themes/introduction
 
 # Build the Hugo site
-RUN hugo && mv public/* /usr/share/nginx/html
+RUN hugo 
+RUN mv public/* /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
